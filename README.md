@@ -18,17 +18,22 @@ A Docker-based development environment for Laravel applications with PHP, Nginx,
 
 2. **Copy environment files**
    ```bash
-   cp .env.docker.example .env.docker
    cp .env.example .env
    ```
 
 3. **Update environment variables**
-   Edit `.env.docker` and `.env` files with your configuration.
+  Edit `.env` files with your configuration.
+
+4. **Set your app name in docker-compose**
+   Replace the `APPNAME` placeholder in `docker-compose.dev.yml` with your app name:
+   ```bash
+   make set-app APP=myapp
+   ```
+   If containers were already created, run `make down` then `make up` to apply renamed containers and networks.
 
 ## Available Commands
 
 Use `make` commands for common tasks:
-
 | Command | Description |
 |---------|-------------|
 | `make build` | Build Docker images |
@@ -43,6 +48,7 @@ Use `make` commands for common tasks:
 | `make logs service=app` | View container logs (default: all) |
 | `make db-shell` | Open MySQL client |
 | `make test` | Run PHPUnit tests |
+| `make set-app APP=myapp` | Replace `APPNAME` with `myapp` in `docker-compose.dev.yml` |
 | `make restart` | Restart all containers |
 
 ## Services
@@ -64,7 +70,7 @@ make up PHP_VER=8.1
 - `docker/` - Docker configuration files
   - `nginx/` - Nginx configuration
   - `php-fpm/` - PHP-FPM configuration
-- `.env.docker` - Environment variables for Docker
+- `.env` - Environment variables for Docker
 - `docker-compose.dev.yml` - Docker Compose configuration
 
 ## Accessing the Application
@@ -96,7 +102,3 @@ make up PHP_VER=8.1
    ```
 
 5. Access the application at http://localhost:8080
-
-## License
-
-[Specify your license here]

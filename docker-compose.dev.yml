@@ -7,8 +7,8 @@ services:
         PHP_VERSION: "${PHP_VERSION:-7.4}"
         UID: "${LOCAL_UID:-1000}"
         GID: "${LOCAL_GID:-1000}"
-    image: laravel_app:${PHP_VERSION:-7.4}
-    container_name: laravel_app
+    image: APPNAME_app:${PHP_VERSION:-7.4}
+    container_name: APPNAME_app
     restart: unless-stopped
     working_dir: /var/www
     environment:
@@ -16,14 +16,14 @@ services:
       - APP_DEBUG=1
     volumes:
       - ./:/var/www:delegated
-      - composer_cache:/home/laravel/.composer/cache
-      - ./docker/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+      - composer_cache:/home/APPNAME/.composer/cache
+      - ./docker/php-fpm/${APP_FRAMEWORK:-laravel}.conf:/usr/local/etc/php-fpm.d/www.conf:ro
     networks:
-      - laravel
+      - APPNAME
 
   web:
     image: nginx:1.23-alpine
-    container_name: laravel_web
+    container_name: APPNAME_web
     restart: unless-stopped
     ports:
       - "${APP_FWD_PORT:-8080}:80"
@@ -33,34 +33,34 @@ services:
     depends_on:
       - app
     networks:
-      - laravel
+      - APPNAME
 
   db:
     image: mysql:8.0
-    container_name: laravel_db
+    container_name: APPNAME_db
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:-root}"
-      MYSQL_DATABASE: "${DB_DATABASE:-laravel}"
-      MYSQL_USER: "${DB_USERNAME:-laravel}"
+      MYSQL_DATABASE: "${DB_DATABASE:-APPNAME}"
+      MYSQL_USER: "${DB_USERNAME:-APPNAME}"
       MYSQL_PASSWORD: "${DB_PASSWORD:-secret}"
     volumes:
       - db_data:/var/lib/mysql
     ports:
       - "${DB_FWD_PORT:-3306}:3306"
     networks:
-      - laravel
+      - APPNAME
 
   redis:
     image: redis:6-alpine
-    container_name: laravel_redis
+    container_name: APPNAME_redis
     restart: unless-stopped
     ports:
       - "${REDIS_FWD_PORT:-6379}:6379"
     volumes:
       - redis_data:/data
     networks:
-      - laravel
+      - APPNAME
 
 volumes:
   db_data:
@@ -68,5 +68,5 @@ volumes:
   composer_cache:
 
 networks:
-  laravel:
+  APPNAME:
     driver: bridge
