@@ -7,10 +7,8 @@ services:
         PHP_VERSION: "${PHP_VERSION:-7.4}"
         UID: "${LOCAL_UID:-1000}"
         GID: "${LOCAL_GID:-1000}"
-    image: laravel_app_dev:${PHP_VERSION:-7.4}
-    container_name: laravel_app_dev
-    env_file:
-      - .env.docker
+    image: laravel_app:${PHP_VERSION:-7.4}
+    container_name: laravel_app
     restart: unless-stopped
     working_dir: /var/www
     environment:
@@ -21,11 +19,11 @@ services:
       - composer_cache:/home/laravel/.composer/cache
       - ./docker/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
     networks:
-      - laravel_dev
+      - laravel
 
   web:
     image: nginx:1.23-alpine
-    container_name: laravel_web_dev
+    container_name: laravel_web
     restart: unless-stopped
     ports:
       - "${APP_FWD_PORT:-8080}:80"
@@ -35,14 +33,12 @@ services:
     depends_on:
       - app
     networks:
-      - laravel_dev
+      - laravel
 
   db:
     image: mysql:8.0
-    container_name: laravel_db_dev
+    container_name: laravel_db
     restart: unless-stopped
-    env_file:
-      - .env.docker
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:-root}"
       MYSQL_DATABASE: "${DB_DATABASE:-laravel}"
@@ -53,18 +49,18 @@ services:
     ports:
       - "${DB_FWD_PORT:-3306}:3306"
     networks:
-      - laravel_dev
+      - laravel
 
   redis:
     image: redis:6-alpine
-    container_name: laravel_redis_dev
+    container_name: laravel_redis
     restart: unless-stopped
     ports:
       - "${REDIS_FWD_PORT:-6379}:6379"
     volumes:
       - redis_data:/data
     networks:
-      - laravel_dev
+      - laravel
 
 volumes:
   db_data:
@@ -72,5 +68,5 @@ volumes:
   composer_cache:
 
 networks:
-  laravel_dev:
+  laravel:
     driver: bridge
