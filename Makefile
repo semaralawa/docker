@@ -1,6 +1,6 @@
 # Makefile
 .PHONY: help build up down rebuild shell composer artisan \
-  migrate migrate-fresh logs test db-shell restart
+  migrate migrate-fresh logs test db-shell restart set-app
 
 COMPOSE_FILE := docker-compose.dev.yml
 PHP_VER ?= 7.4
@@ -19,6 +19,7 @@ help:
 	@echo "  make logs service=   Tail logs for a service (default all)"
 	@echo "  make db-shell        Open mysql client to DB container"
 	@echo "  make test            Run phpunit (inside app)"
+	@echo "  make set-app APP=    Replace APPNAME with provided app name in $(COMPOSE_FILE)"
 	@echo
 	@echo "Override PHP version: make up PHP_VER=8.1"
 
@@ -70,7 +71,6 @@ endif
 	else \
 	  docker compose -f $(COMPOSE_FILE) logs -f --tail=200 $(service); \
 	fi
-
 db-shell:
 	@echo "Connecting to MySQL container..."
 	docker compose -f $(COMPOSE_FILE) exec db mysql -u$${DB_USERNAME:-laravel} \
@@ -81,3 +81,13 @@ test:
 
 restart:
 	docker compose -f $(COMPOSE_FILE) restart
+
+# replace placeholder APPNAME with provided app name in docker-compose file
+set-app:
+ifndef APP
+	$(error APP is required. Usage: make set-app APP=myapp)
+endif
+	@echo "Setting app name to '$(APP)' in $(COMPOSE_FILE)"
+	@grep -q 'APPNAME' $(COMPOSE_FILE) || { echo "No 'APPNAME' found in $(COMPOSE_FILE). Nothing to change."; exit 0; }
+	sed -i 's/APPNAME/$(APP)/g' $(COMPOSE_FILE)
+	@echo "Done. Updated $(COMPOSE_FILE)."
