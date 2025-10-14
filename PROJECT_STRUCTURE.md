@@ -1,6 +1,6 @@
 # Project Structure
 
-Struktur lengkap project Docker PHP setelah reorganisasi.
+Struktur lengkap project Docker PHP production-ready.
 
 ## 📁 Directory Tree
 
@@ -9,12 +9,9 @@ docker-3/
 │
 ├── 📄 README.md                              # Dokumentasi utama - START HERE
 ├── 📄 DOCS_INDEX.md                          # Index navigasi dokumentasi
-├── 📄 ENV_SETUP.md                           # Panduan setup environment
-├── 📄 MIGRATION_GUIDE.md                     # Panduan migrasi dari config lama
+├── 📄 PROJECT_STRUCTURE.md                   # File ini - Struktur project
 ├── 📄 SECURITY.md                            # Security best practices
-├── 📄 IMPROVEMENTS.md                        # Analisis improvements
-├── 📄 CHANGELOG.md                           # Changelog & breaking changes
-├── 📄 PROJECT_STRUCTURE.md                   # File ini
+├── 📄 TECHNICAL_DETAILS.md                   # Technical details & architecture
 │
 ├── 🔧 .dockerignore                          # Docker build optimization
 ├── 🔧 .gitignore                             # Git ignore rules
@@ -90,7 +87,7 @@ docker-3/
 
 | Category | Count | Description |
 |----------|-------|-------------|
-| 📄 Documentation | 7 | Markdown documentation files |
+| 📄 Documentation | 5 | Markdown documentation files |
 | 🐳 Docker Compose | 4 | Compose files for different frameworks & environments |
 | 🐳 Dockerfiles | 2 | Multi-stage Dockerfiles (Laravel & CI3) |
 | 📋 Environment Templates | 4 | .env templates for different setups |
@@ -102,7 +99,7 @@ docker-3/
 | 🗄️ MySQL Configs | 2 | Database configurations |
 | 🔍 Health Checks | 2 | Container health check scripts |
 | 🔧 Other | 2 | .dockerignore, .gitignore |
-| **Total** | **49** | **Total configuration files** |
+| **Total** | **45** | **Total configuration files** |
 
 ### By Framework
 
@@ -119,8 +116,8 @@ docker-3/
 |-------------|-------|-------------|
 | Development | 14 | Dev-specific configurations |
 | Production | 14 | Prod-specific configurations |
-| Both | 21 | Shared files |
-| **Total** | **49** | **All configuration files** |
+| Both | 17 | Shared files |
+| **Total** | **45** | **All configuration files** |
 
 ## 🎯 File Purposes
 
@@ -129,12 +126,9 @@ docker-3/
 #### Documentation
 - **README.md** - Main documentation, quick start guide
 - **DOCS_INDEX.md** - Navigation index for all docs
-- **ENV_SETUP.md** - Environment variable setup guide
-- **MIGRATION_GUIDE.md** - Migration from old config
+- **PROJECT_STRUCTURE.md** - This file, project structure
 - **SECURITY.md** - Security best practices & checklist
-- **IMPROVEMENTS.md** - Technical analysis & benchmarks
-- **CHANGELOG.md** - Version history & breaking changes
-- **PROJECT_STRUCTURE.md** - This file
+- **TECHNICAL_DETAILS.md** - Technical details & architecture
 
 #### Configuration
 - **.dockerignore** - Exclude files from Docker build
@@ -288,17 +282,17 @@ CodeIgniter 3 Production:
 - docker/{framework}/Dockerfile (target: production)
 ```
 
-### For Migration
+### For Understanding Architecture
 ```bash
 # Files to read:
-- MIGRATION_GUIDE.md
-- ENV_SETUP.md
-- CHANGELOG.md
+- TECHNICAL_DETAILS.md
+- SECURITY.md
+- PROJECT_STRUCTURE.md
 ```
 
 ## 📚 Related Documentation
 
 - [README.md](README.md) - Start here
 - [DOCS_INDEX.md](DOCS_INDEX.md) - Documentation navigation
-- [CHANGELOG.md](CHANGELOG.md) - What changed
-- [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) - How to migrate
+- [SECURITY.md](SECURITY.md) - Security guide
+- [TECHNICAL_DETAILS.md](TECHNICAL_DETAILS.md) - Technical details

@@ -3,8 +3,6 @@
 Konfigurasi Docker yang aman, optimal, dan mengikuti best practices untuk aplikasi PHP (Laravel & CodeIgniter 3).
 
 > 📑 **Dokumentasi Lengkap**: Lihat [DOCS_INDEX.md](DOCS_INDEX.md) untuk navigasi semua dokumentasi
-> 
-> 🔄 **Upgrade dari config lama?** Baca [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) dan [ENV_SETUP.md](ENV_SETUP.md)
 
 ## 🎯 Fitur Utama
 
@@ -310,10 +308,9 @@ make -f Makefile.laravel build-dev
 
 ### 📖 Panduan Utama
 - **[DOCS_INDEX.md](DOCS_INDEX.md)** - 📑 Index navigasi semua dokumentasi
-- **[ENV_SETUP.md](ENV_SETUP.md)** - ⚙️ Setup environment variables
-- **[MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)** - 🔄 Panduan migrasi dari config lama
+- **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** - 📁 Struktur project lengkap
 - **[SECURITY.md](SECURITY.md)** - 🔒 Security best practices & checklist
-- **[IMPROVEMENTS.md](IMPROVEMENTS.md)** - 📊 Analisis detail & improvements
+- **[TECHNICAL_DETAILS.md](TECHNICAL_DETAILS.md)** - 📊 Technical details & optimizations
 
 ### 🔗 External Resources
 - [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
@@ -321,12 +318,6 @@ make -f Makefile.laravel build-dev
 - [Nginx Configuration](https://nginx.org/en/docs/)
 - [Laravel Deployment](https://laravel.com/docs/deployment)
 - [CodeIgniter 3 Documentation](https://codeigniter.com/userguide3/)
-
-## ⚠️ Upgrade dari Konfigurasi Lama?
-
-Jika Anda upgrade dari konfigurasi Docker lama, **wajib baca**:
-1. **[MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)** - Step-by-step migration guide
-2. **[ENV_SETUP.md](ENV_SETUP.md)** - Update environment variables
 
 ## 🤝 Contributing
 
