@@ -1,0 +1,65 @@
+# =============================================================================
+# MySQL Configuration for Production
+# Optimized for performance and reliability
+# =============================================================================
+
+[mysqld]
+# General Settings
+default_authentication_plugin = mysql_native_password
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+# Performance Settings (Production)
+max_connections = 200
+max_allowed_packet = 64M
+thread_cache_size = 50
+table_open_cache = 4000
+table_definition_cache = 2000
+
+# InnoDB Settings
+innodb_buffer_pool_size = 1G
+innodb_log_file_size = 256M
+innodb_log_buffer_size = 16M
+innodb_flush_log_at_trx_commit = 1
+innodb_flush_method = O_DIRECT
+innodb_file_per_table = 1
+innodb_buffer_pool_instances = 4
+
+# Query Cache (if MySQL < 8.0)
+# query_cache_type = 1
+# query_cache_size = 64M
+# query_cache_limit = 2M
+
+# Logging (Minimal for production)
+general_log = 0
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+long_query_time = 1
+log_queries_not_using_indexes = 1
+
+# Binary Logging (Important for production)
+log_bin = /var/log/mysql/mysql-bin.log
+binlog_format = ROW
+expire_logs_days = 7
+max_binlog_size = 100M
+
+# Replication (if applicable)
+# server-id = 1
+# read_only = 0
+
+# SQL Mode (Strict for production)
+sql_mode = "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+
+# Security
+local_infile = 0
+skip_name_resolve = 1
+
+# Timeouts
+wait_timeout = 600
+interactive_timeout = 600
+
+[client]
+default-character-set = utf8mb4
+
+[mysql]
+default-character-set = utf8mb4
